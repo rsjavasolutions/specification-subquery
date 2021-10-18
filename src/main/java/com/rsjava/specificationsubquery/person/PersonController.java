@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -29,14 +28,14 @@ public class PersonController {
     public List<PersonResponse> getPeople(@RequestParam(value = "uuid", required = false) String uuid,
                                           @RequestParam(value = "name", required = false) String name,
                                           @RequestParam(value = "surname", required = false) String surname,
-                                          @RequestParam(value = "birthdayFrom", required = false) LocalDate birthdayFrom,
-                                          @RequestParam(value = "birthdayTo", required = false) LocalDate birthdayTo
+                                          @RequestParam(value = "brand", required = false) String brand,
+                                          @RequestParam(value = "model", required = false) String model,
+                                          @RequestParam(value = "yearFrom", required = false) Integer yearFrom,
+                                          @RequestParam(value = "yearTo", required = false) Integer yearTo
 
     ) {
-        return personService.getPeople(uuid, name, surname, birthdayFrom, birthdayTo);
+        return personService.getPeople(uuid, name, surname, brand, model, yearFrom, yearTo);
     }
-
-
 
     @GetMapping("cars")
     @ResponseStatus(HttpStatus.OK)

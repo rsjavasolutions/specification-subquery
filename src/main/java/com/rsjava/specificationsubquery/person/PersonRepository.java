@@ -1,12 +1,11 @@
 package com.rsjava.specificationsubquery.person;
 
 import com.rsjava.specificationsubquery.person.model.PersonEntity;
-import com.rsjava.specificationsubquery.person.response.PersonResponse;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

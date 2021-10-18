@@ -1,9 +1,6 @@
 package com.rsjava.specificationsubquery.utils;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +26,14 @@ public class PredicatesBuilder<T> {
         return this;
     }
 
+    public PredicatesBuilder<T> like(String entityFieldName, String value, JoinType joinType, String joinedCollectionName) {
+
+        if (value != null) {
+            predicates.add(criteriaBuilder.like(root.join(joinedCollectionName, joinType).get(entityFieldName), value));
+        }
+        return this;
+    }
+
     public PredicatesBuilder<T> caseInsensitiveLike(String entityFieldName, String value) {
         if (value != null) {
             predicates.add(criteriaBuilder.like(
@@ -38,9 +43,25 @@ public class PredicatesBuilder<T> {
         return this;
     }
 
+    public PredicatesBuilder<T> caseInsensitiveLike(String entityFieldName, String value, JoinType joinType, String joinedCollectionName) {
+        if (value != null) {
+            predicates.add(criteriaBuilder.like(
+                    criteriaBuilder.lower(root.join(joinedCollectionName, joinType).get(entityFieldName)),
+                    getLikePattern(value.toLowerCase())));
+        }
+        return this;
+    }
+
     public PredicatesBuilder<T> equal(String entityFieldName, Object value) {
         if (value != null) {
             predicates.add(criteriaBuilder.equal(root.get(entityFieldName), value));
+        }
+        return this;
+    }
+
+    public PredicatesBuilder<T> equal(String entityFieldName, Object value, JoinType joinType, String joinedCollectionName) {
+        if (value != null) {
+            predicates.add(criteriaBuilder.equal(root.join(joinedCollectionName, joinType).get(entityFieldName), value));
         }
         return this;
     }
